@@ -108,8 +108,8 @@ function Set-ADTrust {
     # 3. Create the trust between the 2 forests
     Write-Host "3. Creation of trust relationship between the two forests" -ForegroundColor Cyan
 
-    $createTrust = Read-Host "Proceed with creating trust? [Y/n]"
-    if ($createTrust -eq "" -or $createTrust -eq "Y" -or $createTrust -eq "y") {
+    $createTrust = $Host.UI.PromptForChoice($null, "Proceed with creating trust?", ("&Yes", "&No"), 1)
+    if ($createTrust -eq 0) {
         Write-Host "Proceeding with Trust Direction: $TrustDirection" -ForegroundColor Yellow
 
         $remoteContext = New-Object -TypeName "System.DirectoryServices.ActiveDirectory.DirectoryContext" -ArgumentList @("Forest", $DNSName, $RemoteCredential.UserName, $RemoteCredential.GetNetworkCredential().Password)
